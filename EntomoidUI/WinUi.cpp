@@ -44,7 +44,7 @@ bool entomoid::WindowBase::init()
 	std::string className = "test";
 
 	try {
-		callback_ = utils::makeClosure(this, &WindowBase::WndFunc);
+		callback_ = utils::platformGetCallback(this, &WindowBase::WndFunc);
 
 		wc.cbSize = sizeof(wc);
 		wc.style = 0;
@@ -57,16 +57,17 @@ bool entomoid::WindowBase::init()
 		wc.lpszClassName = className.c_str();
 
 		if (!RegisterClassEx(&wc)) {
-			WRAP_WINDOWS_RUNTIME_ERROR("Unable to register class!");
+			DEBUG_MESSAGE("Unable to register class!");
+			return false;
 		}
 
 		if (nullptr == (window_ = CreateWindowEx(0, className.c_str(), "Title.", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, nullptr, nullptr, GetModuleHandle(nullptr), nullptr))) {
-			WRAP_WINDOWS_RUNTIME_ERROR("Failed to create Window!");
+			DEBUG_MESSAGE("Failed to create Window!");
+			return false;
 		}
 
 		ShowWindow(window_, SW_SHOW);
 		UpdateWindow(window_);
-
 
 	}
 	catch (const std::runtime_error& e) {

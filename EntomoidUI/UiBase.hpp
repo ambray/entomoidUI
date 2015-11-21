@@ -28,7 +28,7 @@
 #include <string>
 #include "Settings.hpp"
 
-#ifdef _MSC_VER
+#ifdef _WIN32 || _WIN64
 #include "WinUi.hpp"
 #endif
 
@@ -38,13 +38,13 @@ namespace entomoid {
 
 	class WindowBasic {
 	public:
-		WindowBasic(std::shared_ptr<WindowSettings> obj) { }
+		WindowBasic(WindowSettings& obj) { }
 	};
 
 	template <typename... Mixins>
 	class Window : public WindowBase, public Mixins... {
 	public:
-		Window() : Mixins(getWindowObject())...
+		Window() : Mixins(*getWindowObject())...
 		{
 		
 		}

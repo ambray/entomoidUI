@@ -38,6 +38,18 @@
 		throw std::runtime_error(ss.str());\
 	} while(0)
 
+#ifdef _DEBUG
+#define DEBUG_MESSAGE(msg)\
+	do {\
+		std::stringstream ss;\
+		ss << "[UIError] Line: " << __LINE__ << " File: " << __FILE__ <<\
+		" | Message: " << msg << " LastError: " << GetLastError() << std::endl;\
+		OutputDebugStringA(ss.str().c_str());\
+	} while(0)
+#else
+#define DEBUG_MESSAGE(msg)	(void*)0
+#endif
+
 namespace entomoid {
 	namespace utils {
 

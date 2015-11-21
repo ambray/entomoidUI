@@ -100,23 +100,23 @@ namespace {
 	};
 #pragma pack(pop)
 
-std::pair<std::shared_ptr<void>, size_t> makeWindowsCallback(size_t thisptr, size_t fptr)
-{
+	std::pair<std::shared_ptr<void>, size_t> makeWindowsCallback(size_t thisptr, size_t fptr)
+	{
 
-	CallbackBlob blob;
+		CallbackBlob blob;
 
-	std::copy(callback_buf.begin(), callback_buf.end(), blob.innerBytes_.begin());
-	blob.funcPtr_ = fptr;
-	blob.thisPtr_ = thisptr;
+		std::copy(callback_buf.begin(), callback_buf.end(), blob.innerBytes_.begin());
+		blob.funcPtr_ = fptr;
+		blob.thisPtr_ = thisptr;
 
-	auto tmp = VirtualAlloc(nullptr, sizeof(blob), MEM_COMMIT, PAGE_READWRITE);
-	if (nullptr == tmp)
-		throw std::bad_alloc();
+		auto tmp = VirtualAlloc(nullptr, sizeof(blob), MEM_COMMIT, PAGE_READWRITE);
+		if (nullptr == tmp)
+			throw std::bad_alloc();
 
-	memcpy(tmp, &blob, sizeof(blob));
+		memcpy(tmp, &blob, sizeof(blob));
 
-	return std::make_pair(std::shared_ptr<void>(tmp, [](void* p) { VirtualFree(p, 0, MEM_RELEASE); }), sizeof(blob));
-}
+		return std::make_pair(std::shared_ptr<void>(tmp, [](void* p) { VirtualFree(p, 0, MEM_RELEASE); }), sizeof(blob));
+	}
 
 }
 

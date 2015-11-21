@@ -33,7 +33,7 @@
 #include <vector>
 #include <memory>
 
-#ifdef _MSC_VER
+#ifdef _WIN32 || _WIN64
 #include "WinUtils.hpp"
 #endif
 
