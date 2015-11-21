@@ -67,6 +67,7 @@ bool entomoid::WindowBase::init()
 		ShowWindow(window_, SW_SHOW);
 		UpdateWindow(window_);
 
+
 	}
 	catch (const std::runtime_error& e) {
 		std::cout << "Runtime error! " << e.what() << std::endl;
@@ -78,6 +79,30 @@ bool entomoid::WindowBase::init()
 
 	active_ = true;
 	return true;
+}
+
+uint32_t entomoid::WindowBase::eventLoop()
+{
+	if (!active_)
+		return 0;
+
+	MSG msg = { 0 };
+	while (true) {
+		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+			if (WM_QUIT == msg.message)
+				break;
+
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+	}
+
+	return msg.wParam;
+}
+
+bool entomoid::WindowBase::isActive()
+{
+	return active_;
 }
 
 void entomoid::WindowBase::shutdown()

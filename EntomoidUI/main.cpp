@@ -14,10 +14,9 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hPrev, LPSTR cmd, int cmdShow)
 	if (!wb.init()) {
 		return -1;
 	}
-	MSG msg = { 0 };
-	while (GetMessage(&msg, nullptr, 0, 0)) {
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-	}
+
+	wb.eventLoop();
+
+	return 0;
 
 }

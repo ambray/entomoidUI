@@ -24,6 +24,7 @@
 *********************************************************************************/
 
 #include <memory>
+#include <thread>
 #include <Windows.h>
 #include "WinUtils.hpp"
 
@@ -32,15 +33,17 @@
 namespace entomoid {
 	class WindowBase {
 	private:
-	protected:
 		bool active_;
 		std::shared_ptr<void> callback_;
+	protected:
 		HWND window_;
 
 	public:
 		WindowBase() : active_(false) { }
 		LRESULT WndFunc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 		bool init();
+		uint32_t eventLoop();
+		bool isActive();
 		void shutdown();
 	};
 }
