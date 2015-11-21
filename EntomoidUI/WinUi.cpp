@@ -111,7 +111,7 @@ void entomoid::WindowBase::shutdown()
 		DestroyWindow(window_);
 }
 
-HWND entomoid::WindowBase::getWindowObject()
+std::shared_ptr<entomoid::WindowSettings> entomoid::WindowBase::getWindowObject()
 {
-	return window_;
+	return winObj_;
 }

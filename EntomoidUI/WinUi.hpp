@@ -26,6 +26,7 @@
 #include <memory>
 #include <thread>
 #include <Windows.h>
+#include "Settings.hpp"
 #include "WinUtils.hpp"
 
 
@@ -36,15 +37,16 @@ namespace entomoid {
 		bool active_;
 		std::shared_ptr<void> callback_;
 	protected:
+		std::shared_ptr<WindowSettings> winObj_;
 		HWND window_;
 
 	public:
-		WindowBase() : active_(false) { }
+		WindowBase() : active_(false), winObj_(new WindowSettings) { }
 		LRESULT WndFunc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 		virtual bool init();
 		virtual size_t eventLoop();
 		virtual bool isActive();
 		virtual void shutdown();
-		virtual HWND getWindowObject();
+		std::shared_ptr<WindowSettings> getWindowObject();
 	};
 }

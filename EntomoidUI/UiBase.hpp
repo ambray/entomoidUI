@@ -26,6 +26,7 @@
 #include <sstream>
 #include <iostream>
 #include <string>
+#include "Settings.hpp"
 
 #ifdef _MSC_VER
 #include "WinUi.hpp"
@@ -33,16 +34,11 @@
 
 namespace entomoid {
 
-	struct WindowSettings {
-		size_t		width;
-		size_t		height;
-		size_t		x_pos;
-		size_t		y_pos;
-	};
+
 
 	class WindowBasic {
 	public:
-		WindowBasic(HWND wnd) { MessageBoxA(nullptr, "Derp!", "Hmm,", MB_OK); }
+		WindowBasic(std::shared_ptr<WindowSettings> obj) { }
 	};
 
 	template <typename... Mixins>
