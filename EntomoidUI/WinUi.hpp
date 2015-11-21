@@ -16,7 +16,7 @@ namespace entomoid {
 	public:
 		WindowBase() : active_(false) { }
 		LRESULT WndFunc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
-		bool init(HINSTANCE hinst);
+		bool init();
 		void shutdown();
 	};
 }

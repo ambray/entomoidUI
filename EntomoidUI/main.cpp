@@ -11,7 +11,7 @@ using namespace entomoid;
 int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hPrev, LPSTR cmd, int cmdShow)
 {
 	Window<WindowBasic> wb;
-	if (!wb.init(hinst)) {
+	if (!wb.init()) {
 		return -1;
 	}
 	MSG msg = { 0 };
