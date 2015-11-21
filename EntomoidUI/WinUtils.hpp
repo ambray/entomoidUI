@@ -24,10 +24,12 @@
 *********************************************************************************/
 
 #include <Windows.h>
+#include <rpc.h>
 #include <sstream>
 #include <vector>
 #include <array>
 #include <stdint.h>
+#include <string>
 #include <memory>
 #include "Utils.hpp"
 
@@ -55,6 +57,7 @@ namespace entomoid {
 
 		std::shared_ptr<void> windows_getCallback(size_t thisptr, void* fptr);
 		EventType windows_mapEvent(UINT msg);
+		std::string platformGetUniqueId();
 
 		template <typename T, typename F>
 		std::shared_ptr<void> inline platformGetCallback(T thisptr, F fptr)

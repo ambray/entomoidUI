@@ -57,9 +57,9 @@ LRESULT entomoid::WindowBase::WndFunc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM
 bool entomoid::WindowBase::init()
 {
 	WNDCLASSEXA wc = { 0 };
-	std::string className = "test";
 
 	try {
+		windowClassName_ = utils::platformGetUniqueId();
 		callback_ = utils::platformGetCallback(this, &WindowBase::WndFunc);
 
 		wc.cbSize = sizeof(wc);
@@ -70,14 +70,14 @@ bool entomoid::WindowBase::init()
 		wc.hIconSm = LoadIcon(nullptr, IDI_APPLICATION);
 		wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
 		wc.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 2);
-		wc.lpszClassName = className.c_str();
+		wc.lpszClassName = windowClassName_.c_str();
 
 		if (!RegisterClassEx(&wc)) {
 			DEBUG_MESSAGE("Unable to register class!");
 			return false;
 		}
 
-		if (nullptr == (window_ = CreateWindowEx(0, className.c_str(), "Title.", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, nullptr, nullptr, GetModuleHandle(nullptr), nullptr))) {
+		if (nullptr == (window_ = CreateWindowEx(0, windowClassName_.c_str(), "Title.", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, nullptr, nullptr, GetModuleHandle(nullptr), nullptr))) {
 			DEBUG_MESSAGE("Failed to create Window!");
 			return false;
 		}

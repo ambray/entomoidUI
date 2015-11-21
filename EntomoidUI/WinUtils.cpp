@@ -156,6 +156,28 @@ namespace entomoid {
 
 			}
 		}
+
+		std::string platformGetUniqueId()
+		{
+			std::string output;
+			RPC_STATUS	status = RPC_S_OK;
+			UUID		uid = { 0 };
+			char*		tmp = nullptr;
+			
+			if (RPC_S_OK != (status = ::UuidCreate(&uid))) {
+				WRAP_WINDOWS_RUNTIME_ERROR("Failed to create GUID!");
+			}
+
+			::UuidToStringA(&uid, reinterpret_cast<RPC_CSTR*>(&tmp));
+			if (nullptr == tmp)
+				WRAP_WINDOWS_RUNTIME_ERROR("Failed to translate GUID to string!");
+
+			output = tmp;
+
+			::RpcStringFreeA(reinterpret_cast<RPC_CSTR*>(&tmp));
+
+			return output;
+		}
 	}
 
 }

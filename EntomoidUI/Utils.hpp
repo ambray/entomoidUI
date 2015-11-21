@@ -34,7 +34,7 @@
 #include <memory>
 #include "Settings.hpp"
 
-#ifdef _WIN32 || _WIN64
+#ifdef _WIN32 
 #include "WinUtils.hpp"
 #endif
 

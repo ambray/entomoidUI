@@ -14,7 +14,7 @@ namespace entomoid {
 		EventType type;
 	};
 
-#ifdef _WIN32 || _WIN64
+#ifdef _WIN32 
 	using WinRef = HWND;
 #endif
 

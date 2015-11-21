@@ -41,6 +41,7 @@ namespace entomoid {
 	private:
 		bool active_;
 		std::shared_ptr<void> callback_;
+		std::string windowClassName_;
 	protected:
 		std::shared_ptr<WindowSettings> winObj_;
 		std::mutex eventLock_;
