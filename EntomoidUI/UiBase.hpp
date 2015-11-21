@@ -19,7 +19,5 @@ namespace entomoid {
 	public:
 		Window() : Mixins()...
 		{}
-
-		void derp() { std::cout << "Derp" << std::endl; }
 	};
 }
