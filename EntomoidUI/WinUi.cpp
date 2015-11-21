@@ -25,13 +25,29 @@
 
 LRESULT entomoid::WindowBase::WndFunc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	switch (msg) {
-	case WM_KEYDOWN:
-		if (wparam == VK_ESCAPE) 
-			shutdown();
-		return 0;
-	case WM_DESTROY:
+	EventCallback func;
+
+	auto findCallback = [&](UINT m) -> bool {
+		std::unique_lock<std::mutex> lock(eventLock_);
+
+		auto tmp = events_.find(utils::platformTranslateEvent(m));
+		if (events_.end() == tmp)
+			return false;
+
+		func = tmp->second;
+		return true;
+	};
+
+	if (WM_DESTROY == msg) {
 		PostQuitMessage(0);
+		return 0;
+	}
+	
+	if (findCallback(msg) && func) {
+		// TODO: set up event objects!
+		EventObject obj;
+		obj.type = utils::platformTranslateEvent(msg);
+		func(obj);
 		return 0;
 	}
 
@@ -110,6 +126,19 @@ void entomoid::WindowBase::shutdown()
 {
 	if (active_)
 		DestroyWindow(window_);
+}
+
+bool entomoid::WindowBase::setEventListener(EventType evt, EventCallback func, bool overwrite)
+{
+	std::unique_lock<std::mutex> lock(eventLock_);
+	if (!overwrite) {
+		auto tmp = events_.find(evt);
+		if (tmp != events_.end())
+			return false;
+	}
+
+	events_[evt] = func;
+	return true;
 }
 
 std::shared_ptr<entomoid::WindowSettings> entomoid::WindowBase::getWindowObject()

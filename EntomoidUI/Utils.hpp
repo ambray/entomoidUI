@@ -32,6 +32,7 @@
 #include <array>
 #include <vector>
 #include <memory>
+#include "Settings.hpp"
 
 #ifdef _WIN32 || _WIN64
 #include "WinUtils.hpp"
@@ -60,5 +61,12 @@ namespace entomoid {
 
 			std::cout << ss.str() << std::endl;
 		}
+
+		template <typename T>
+		EventType inline translateEvent(T t)
+		{
+			return platformTranslateEvent(t);
+		}
+		
 	}
 }

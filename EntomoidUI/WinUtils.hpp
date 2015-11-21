@@ -54,6 +54,7 @@ namespace entomoid {
 	namespace utils {
 
 		std::shared_ptr<void> windows_getCallback(size_t thisptr, void* fptr);
+		EventType windows_mapEvent(UINT msg);
 
 		template <typename T, typename F>
 		std::shared_ptr<void> inline platformGetCallback(T thisptr, F fptr)
@@ -61,5 +62,11 @@ namespace entomoid {
 			return windows_getCallback((size_t)thisptr, (void*&)fptr);
 		}
 	
+		
+		template <typename T>
+		EventType inline platformTranslateEvent(T t)
+		{
+			return windows_mapEvent(t);
+		}
 	}
 }

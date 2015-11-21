@@ -15,6 +15,8 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hPrev, LPSTR cmd, int cmdShow)
 		return -1;
 	}
 
+	wb.setEventListener(EventType::QuitEvent, [&](EventObject& ob) { wb.shutdown(); });
+
 	wb.eventLoop();
 
 

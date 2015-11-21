@@ -2,6 +2,18 @@
 
 namespace entomoid {
 
+	enum class EventType {
+		KeyEvent,
+		MouseEvent,
+		WindowEvent,
+		QuitEvent,
+		EventOther,
+	};
+
+	struct EventObject {
+		EventType type;
+	};
+
 #ifdef _WIN32 || _WIN64
 	using WinRef = HWND;
 #endif

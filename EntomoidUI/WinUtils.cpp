@@ -139,6 +139,23 @@ namespace entomoid {
 			return ptr;
 
 		}
+		EventType windows_mapEvent(UINT msg)
+		{
+			switch (msg) {
+			case WM_KEYDOWN:
+			case WM_KEYUP:
+				return EventType::KeyEvent;
+			case WM_MBUTTONDBLCLK:
+			case WM_MBUTTONDOWN:
+			case WM_MBUTTONUP:
+				return EventType::MouseEvent;
+			case WM_QUIT:
+				return EventType::QuitEvent;
+			default:
+				return EventType::EventOther;
+
+			}
+		}
 	}
 
 }

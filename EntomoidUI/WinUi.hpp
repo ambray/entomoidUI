@@ -25,19 +25,26 @@
 
 #include <memory>
 #include <thread>
+#include <mutex>
+#include <map>
+#include <functional>
 #include <Windows.h>
 #include "Settings.hpp"
 #include "WinUtils.hpp"
 
 
-
 namespace entomoid {
+
+	using EventCallback = std::function<void(EventObject&)>;
+
 	class WindowBase {
 	private:
 		bool active_;
 		std::shared_ptr<void> callback_;
 	protected:
 		std::shared_ptr<WindowSettings> winObj_;
+		std::mutex eventLock_;
+		std::map<EventType, EventCallback> events_;
 		HWND window_;
 
 	public:
@@ -47,6 +54,7 @@ namespace entomoid {
 		virtual size_t eventLoop();
 		virtual bool isActive();
 		virtual void shutdown();
+		virtual bool setEventListener(EventType evt, EventCallback func, bool overwrite=true);
 		std::shared_ptr<WindowSettings> getWindowObject();
 	};
 }
