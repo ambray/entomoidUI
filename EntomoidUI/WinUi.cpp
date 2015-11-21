@@ -86,11 +86,16 @@ bool entomoid::WindowBase::init()
 		UpdateWindow(window_);
 
 	}
+	catch (const std::bad_alloc& e) {
+		DEBUG_MESSAGE("Failed to allocate space somewhere! " << e.what());
+		return false;
+	}
 	catch (const std::runtime_error& e) {
-		std::cout << "Runtime error! " << e.what() << std::endl;
+		DEBUG_MESSAGE("Runtime error! " << e.what());
+		return false;
 	}
 	catch (const std::exception& e) {
-		std::cout << "Exception! " << e.what() << std::endl;
+		DEBUG_MESSAGE("Exception! " << e.what());
 		return false;
 	}
 
