@@ -81,7 +81,7 @@ bool entomoid::WindowBase::init()
 	return true;
 }
 
-uint32_t entomoid::WindowBase::eventLoop()
+size_t entomoid::WindowBase::eventLoop()
 {
 	if (!active_)
 		return 0;
@@ -109,4 +109,9 @@ void entomoid::WindowBase::shutdown()
 {
 	if (active_)
 		DestroyWindow(window_);
+}
+
+HWND entomoid::WindowBase::getWindowObject()
+{
+	return window_;
 }

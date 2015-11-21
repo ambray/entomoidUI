@@ -41,9 +41,10 @@ namespace entomoid {
 	public:
 		WindowBase() : active_(false) { }
 		LRESULT WndFunc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
-		bool init();
-		uint32_t eventLoop();
-		bool isActive();
-		void shutdown();
+		virtual bool init();
+		virtual size_t eventLoop();
+		virtual bool isActive();
+		virtual void shutdown();
+		virtual HWND getWindowObject();
 	};
 }

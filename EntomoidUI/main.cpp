@@ -17,6 +17,7 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hPrev, LPSTR cmd, int cmdShow)
 
 	wb.eventLoop();
 
+
 	return 0;
 
 }

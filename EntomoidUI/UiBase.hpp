@@ -33,15 +33,24 @@
 
 namespace entomoid {
 
+	struct WindowSettings {
+		size_t		width;
+		size_t		height;
+		size_t		x_pos;
+		size_t		y_pos;
+	};
+
 	class WindowBasic {
 	public:
-		WindowBasic() {}
+		WindowBasic(HWND wnd) { MessageBoxA(nullptr, "Derp!", "Hmm,", MB_OK); }
 	};
 
 	template <typename... Mixins>
 	class Window : public WindowBase, public Mixins... {
 	public:
-		Window() : Mixins()...
-		{}
+		Window() : Mixins(getWindowObject())...
+		{
+		
+		}
 	};
 }
