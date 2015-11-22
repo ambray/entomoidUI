@@ -130,16 +130,3 @@ void entomoid::WindowBase::shutdown()
 		active_ = false;
 	}
 }
-
-bool entomoid::WindowBase::setEventListener(EventType evt, EventCallback func, bool overwrite)
-{
-	std::unique_lock<std::mutex> lock(eventLock_);
-	if (!overwrite) {
-		auto tmp = events_.find(evt);
-		if (tmp != events_.end())
-			return false;
-	}
-
-	events_[evt] = func;
-	return true;
-}

@@ -33,7 +33,6 @@
 #endif
 
 namespace entomoid {
-
 	class WindowBasic : public virtual WindowBase {
 	public:
 		template <typename... Args>
@@ -51,6 +50,26 @@ namespace entomoid {
 
 		Window() : Mixins()...
 		{}
+
+		template <typename T, typename F>
+		bool setEvent(T t, F callback, bool overwrite = true)
+		{
+			return setEventListener(t, callback, overwrite);
+		}
+		
+		template <EventType E>
+		auto setEvent(EventCallback callback, bool overwrite = true) -> typename std::enable_if<std::is_enum<EventType>::value, bool>::type
+		{
+			std::unique_lock<std::mutex> lock(eventLock_);
+			if (!overwrite) {
+				auto tmp = events_.find(E);
+				if (tmp != events_.end())
+					return false;
+			}
+
+			events_[E] = callback;
+			return true;
+		}
 
 		virtual bool isActive() override 
 		{

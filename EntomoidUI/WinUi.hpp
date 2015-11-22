@@ -52,6 +52,5 @@ namespace entomoid {
 		virtual bool init();
 		virtual size_t eventLoop();
 		virtual void shutdown();
-		virtual bool setEventListener(EventType evt, EventCallback func, bool overwrite=true);
 	};
 }
