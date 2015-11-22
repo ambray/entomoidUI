@@ -38,6 +38,28 @@
 #include "WinUtils.hpp"
 #endif
 
+/**
+* Some helper macros to provide SFINAE-based compile time interface validation	
+* (e.g., it allows easy checking to ensure that the decorated function "fname" 
+* matching signature "def" actually exists in class cls).
+* They are intended to be used as a pair; ENTOMOID_DECLARE_HAS_FUNC adds the forward
+* template declaration, and ENTOMOID_CHECK_HAS_FUNC attempts to instantiate it and
+* retrieve the value. If a function matching the signature is not found in the
+* provided class, compilation errors will result.
+* Ex:
+*	class TestClass {
+*	public:
+*		void test() {}
+*	};
+*   ...
+*   ENTOMOID_DECLARE_HAS_FUNC(TestClass, test, void());
+*	...
+*	std::cout << "Does TestClass have func 'void test()'? " 
+*			  << ENTOMOID_CHECK_HAS_FUNC(TestClass, test, void()) << std::endl;
+*
+* Output: 
+*		"Does TestClass have func 'void test()'? 1" (or compilation error, if test() doesn't exist).
+*/
 /// Example use: ENTOMOID_DECLARE_HAS_FUNC(TestClass, test, void());
 #define ENTOMOID_DECLARE_HAS_FUNC(cls, fname, def)\
 	template<typename, typename T>\
