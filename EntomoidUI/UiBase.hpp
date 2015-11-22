@@ -43,6 +43,12 @@ namespace entomoid {
 	template <typename... Mixins>
 	class Window : public virtual WindowBase, public Mixins... {
 	public:
+
+		virtual ~Window() 
+		{
+			shutdown();
+		}
+
 		template <typename... Args>
 		Window(Args... args) : Mixins(args)...
 		{
@@ -54,6 +60,8 @@ namespace entomoid {
 		template <typename T, typename F>
 		bool setEvent(T t, F callback, bool overwrite = true)
 		{
+			/// This function doesn't exist in WindowBase or Window, and is provided
+			/// as an interface to allow custom event type registration via mixin
 			return setEventListener(t, callback, overwrite);
 		}
 		

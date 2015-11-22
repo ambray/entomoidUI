@@ -49,6 +49,7 @@ namespace entomoid {
 		std::map<EventType, EventCallback> events_;
 	public:
 		WindowBase() : active_(false), winObj_(new WindowSettings) { }
+		virtual ~WindowBase() {}
 		virtual bool init();
 		virtual size_t eventLoop();
 		virtual void shutdown();
