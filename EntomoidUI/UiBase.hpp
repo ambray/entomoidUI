@@ -34,17 +34,12 @@
 
 namespace entomoid {
 
-
-
 	class WindowBasic : public virtual WindowBase {
 	public:
 		template <typename... Args>
 		WindowBasic(Args... args) {  }
-
 		WindowBasic() {}
 	};
-
-	
 
 	template <typename... Mixins>
 	class Window : public virtual WindowBase, public Mixins... {
@@ -56,5 +51,15 @@ namespace entomoid {
 
 		Window() : Mixins()...
 		{}
+
+		virtual bool isActive() override 
+		{
+			return active_;
+		}
+
+		virtual std::shared_ptr<WindowSettings> getWindowObject() override
+		{
+			return winObj_;
+		}
 	};
 }

@@ -1,4 +1,5 @@
 #include "WinUi.hpp"
+
 /********************************************************************************
 * The MIT License (MIT)
 *
@@ -77,13 +78,13 @@ bool entomoid::WindowBase::init()
 			return false;
 		}
 
-		if (nullptr == (window_ = CreateWindowEx(0, windowClassName_.c_str(), "Title.", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, nullptr, nullptr, GetModuleHandle(nullptr), nullptr))) {
+		if (nullptr == (winObj_->current_ = CreateWindowEx(0, windowClassName_.c_str(), "Title.", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, nullptr, nullptr, GetModuleHandle(nullptr), nullptr))) {
 			DEBUG_MESSAGE("Failed to create Window!");
 			return false;
 		}
 
-		ShowWindow(window_, SW_SHOW);
-		UpdateWindow(window_);
+		ShowWindow(winObj_->current_, SW_SHOW);
+		UpdateWindow(winObj_->current_);
 
 	}
 	catch (const std::bad_alloc& e) {
@@ -122,15 +123,12 @@ size_t entomoid::WindowBase::eventLoop()
 	return msg.wParam;
 }
 
-bool entomoid::WindowBase::isActive()
-{
-	return active_;
-}
-
 void entomoid::WindowBase::shutdown()
 {
-	if (active_)
-		DestroyWindow(window_);
+	if (active_) {
+		DestroyWindow(winObj_->current_);
+		active_ = false;
+	}
 }
 
 bool entomoid::WindowBase::setEventListener(EventType evt, EventCallback func, bool overwrite)
@@ -144,9 +142,4 @@ bool entomoid::WindowBase::setEventListener(EventType evt, EventCallback func, b
 
 	events_[evt] = func;
 	return true;
-}
-
-std::shared_ptr<entomoid::WindowSettings> entomoid::WindowBase::getWindowObject()
-{
-	return winObj_;
 }

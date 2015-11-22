@@ -29,6 +29,7 @@
 #include <map>
 #include <functional>
 #include <Windows.h>
+#include "interface.hpp"
 #include "Settings.hpp"
 #include "WinUtils.hpp"
 
@@ -36,25 +37,21 @@
 namespace entomoid {
 
 
-	class WindowBase {
+	class WindowBase : public WindowInterface {
 	private:
-		bool active_;
 		std::shared_ptr<void> callback_;
 		std::string windowClassName_;
+		LRESULT WndFunc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 	protected:
+		bool active_;
 		std::shared_ptr<WindowSettings> winObj_;
 		std::mutex eventLock_;
 		std::map<EventType, EventCallback> events_;
-		HWND window_;
-
 	public:
 		WindowBase() : active_(false), winObj_(new WindowSettings) { }
-		LRESULT WndFunc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 		virtual bool init();
 		virtual size_t eventLoop();
-		virtual bool isActive();
 		virtual void shutdown();
 		virtual bool setEventListener(EventType evt, EventCallback func, bool overwrite=true);
-		std::shared_ptr<WindowSettings> getWindowObject();
 	};
 }

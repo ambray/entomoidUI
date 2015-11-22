@@ -126,6 +126,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="interface.hpp" />
     <ClInclude Include="Settings.hpp" />
     <ClInclude Include="Utils.hpp" />
     <ClInclude Include="UiBase.hpp" />
