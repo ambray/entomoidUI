@@ -58,7 +58,7 @@ namespace entomoid {
 		{}
 
 		template <typename T, typename F>
-		bool setEvent(T t, F callback, bool overwrite = true)
+		bool inline setEventFunc(T t, F callback, bool overwrite = true)
 		{
 			/// This function doesn't exist in WindowBase or Window, and is provided
 			/// as an interface to allow custom event type registration via mixin
@@ -66,7 +66,7 @@ namespace entomoid {
 		}
 		
 		template <EventType E>
-		bool setEvent(EventCallback callback, bool overwrite = true) 
+		bool inline setEventFunc(EventCallback callback, bool overwrite = true) 
 		{
 			std::unique_lock<std::mutex> lock(eventLock_);
 			if (!overwrite) {
@@ -79,12 +79,30 @@ namespace entomoid {
 			return true;
 		}
 
-		virtual bool isActive() override 
+		template <typename T, typename F>
+		bool inline removeEventFunc(T t, F f)
+		{
+			return removeEventListener(t, f);
+		}
+
+		template <EventType E>
+		bool inline removeEventFunc()
+		{
+			std::unique_lock<std::mutex> lock(eventLock_);
+			auto tmp = events_.find(E);
+			if (tmp == events_.end())
+				return false;
+
+			events_.erase(tmp);
+			return true;
+		}
+
+		virtual bool inline isActive() override 
 		{
 			return active_;
 		}
 
-		virtual std::shared_ptr<WindowSettings> getWindowObject() override
+		virtual std::shared_ptr<WindowSettings> inline getWindowObject() override
 		{
 			return winObj_;
 		}
