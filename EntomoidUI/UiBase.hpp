@@ -66,7 +66,7 @@ namespace entomoid {
 		}
 		
 		template <EventType E>
-		auto setEvent(EventCallback callback, bool overwrite = true) -> typename std::enable_if<std::is_enum<EventType>::value, bool>::type
+		bool setEvent(EventCallback callback, bool overwrite = true) 
 		{
 			std::unique_lock<std::mutex> lock(eventLock_);
 			if (!overwrite) {
