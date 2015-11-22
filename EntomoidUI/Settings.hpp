@@ -1,6 +1,11 @@
 #pragma once
 
+#include <string>
+#include <functional>
+#include <stdint.h>
+
 namespace entomoid {
+
 
 	enum class EventType {
 		KeyEvent,
@@ -13,6 +18,8 @@ namespace entomoid {
 	struct EventObject {
 		EventType type;
 	};
+
+	using EventCallback = std::function<void(EventObject&)>;
 
 #ifdef _WIN32 
 	using WinRef = HWND;

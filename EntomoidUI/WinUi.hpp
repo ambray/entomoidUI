@@ -35,7 +35,6 @@
 
 namespace entomoid {
 
-	using EventCallback = std::function<void(EventObject&)>;
 
 	class WindowBase {
 	private:

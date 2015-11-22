@@ -36,17 +36,25 @@ namespace entomoid {
 
 
 
-	class WindowBasic {
+	class WindowBasic : public virtual WindowBase {
 	public:
-		WindowBasic(WindowSettings& obj) { }
+		template <typename... Args>
+		WindowBasic(Args... args) {  }
+
+		WindowBasic() {}
 	};
 
+	
+
 	template <typename... Mixins>
-	class Window : public WindowBase, public Mixins... {
+	class Window : public virtual WindowBase, public Mixins... {
 	public:
-		Window() : Mixins(*getWindowObject())...
+		template <typename... Args>
+		Window(Args... args) : Mixins(args)...
 		{
-		
 		}
+
+		Window() : Mixins()...
+		{}
 	};
 }
