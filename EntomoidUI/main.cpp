@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <windows.h>
 #include <memory>
 #include "UiBase.hpp"
@@ -10,7 +11,10 @@ using namespace entomoid;
 
 int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hPrev, LPSTR cmd, int cmdShow)
 {
+
+	std::stringstream ss;
 	Window<WindowBasic> wb;
+
 	if (!wb.init()) {
 		return -1;
 	}

@@ -38,8 +38,33 @@
 #include "WinUtils.hpp"
 #endif
 
+/// Example use: ENTOMOID_DECLARE_HAS_FUNC(TestClass, test, void());
+#define ENTOMOID_DECLARE_HAS_FUNC(cls, fname, def)\
+	template<typename, typename T>\
+	struct entomoid_ensure_has_##fname {\
+		static_assert(std::integral_constant<T, false>::value, "Failed to find function " #fname " during template instantiation!");\
+	};\
+	template <typename C, typename R, typename... Args>\
+	struct entomoid_ensure_has_##fname<C, R(Args...)> {\
+	private:\
+		template <typename T>\
+		static constexpr auto validate(T*)\
+			-> typename std::is_same<decltype(std::declval<T>().##fname(std::declval<Args>()...)), R>::type;\
+		template <typename>\
+		static constexpr std::false_type validate(...);\
+		using type = decltype(validate<C>(0));\
+	public:\
+		static constexpr bool value = type::value;\
+	} 
+
+/// Example of use (same as above): ENTOMOID_CHECK_HAS_FUNC(TestClass, test, void());
+#define ENTOMOID_CHECK_HAS_FUNC(cls, fname, def)\
+	entomoid_ensure_has_##fname<cls, def>::value
+
 namespace entomoid {
 	namespace utils {
+
+
 		enum class ClosureType {
 			Callback,
 		};
