@@ -62,7 +62,7 @@ namespace entomoid {
 		template <typename T, typename F>
 		std::shared_ptr<void> inline platformGetCallback(T thisptr, F fptr)
 		{
-			return windows_getCallback((size_t)thisptr, (void*&)fptr);
+			return windows_getCallback((size_t)thisptr, union_cast<void*>(fptr));
 		}
 	
 		

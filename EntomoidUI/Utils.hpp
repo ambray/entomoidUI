@@ -39,7 +39,7 @@
 #endif
 
 /**
-* Some helper macros to provide SFINAE-based compile time interface validation	
+* Some helper macros to provide compile time interface validation	
 * (e.g., it allows easy checking to ensure that the decorated function "fname" 
 * matching signature "def" actually exists in class cls).
 * They are intended to be used as a pair; ENTOMOID_DECLARE_HAS_FUNC adds the forward
@@ -90,6 +90,16 @@ namespace entomoid {
 		enum class ClosureType {
 			Callback,
 		};
+
+
+		template <typename T, typename S>
+		T union_cast(S s)
+		{
+			static_assert(sizeof(T) == sizeof(S), "Size mismatch detected in union cast!");
+			union _un { S s; T t; } u;
+			u.s = s;
+			return u.t;
+		}
 
 		template <typename T, typename F>
 		std::shared_ptr<void> inline makeClosure(T thisptr, F cb, ClosureType type=ClosureType::Callback)

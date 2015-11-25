@@ -24,7 +24,6 @@
 *********************************************************************************/
 
 #include <memory>
-#include <thread>
 #include <mutex>
 #include <map>
 #include <functional>
