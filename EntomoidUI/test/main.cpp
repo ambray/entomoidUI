@@ -3,9 +3,9 @@
 #include <sstream>
 #include <windows.h>
 #include <memory>
-#include "UiBase.hpp"
-#include "Utils.hpp"
-#include "WinUtils.hpp"
+#include "..\src\UiBase.hpp"
+#include "..\src\Utils.hpp"
+#include "..\src\WinUtils.hpp"
 
 using namespace entomoid;
 
