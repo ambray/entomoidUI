@@ -9,17 +9,9 @@
 
 using namespace entomoid;
 
-int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hPrev, LPSTR cmd, int cmdShow)
+int main(int argc, char** argv, char** envp)
 {
 
-	std::stringstream ss;
-	Window<WindowBasic> wb;
-
-	if (!wb.init()) {
-		return -1;
-	}
-	wb.setEventFunc<EventType::QuitEvent>([&](EventObject& ob) { wb.shutdown(); });
-	wb.eventLoop();
 
 	return 0;
 
