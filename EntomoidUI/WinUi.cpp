@@ -63,6 +63,9 @@ bool entomoid::WindowBase::init()
 		windowClassName_ = utils::platformGetUniqueId();
 		callback_ = utils::platformGetCallback(this, &WindowBase::WndFunc);
 
+		if ("" == windowClassName_ || !callback_)
+			return false;
+
 		wc.cbSize = sizeof(wc);
 		wc.style = 0;
 		wc.lpfnWndProc = reinterpret_cast<WNDPROC>(callback_.get());

@@ -110,8 +110,10 @@ namespace {
 		blob.thisPtr_ = thisptr;
 
 		auto tmp = VirtualAlloc(nullptr, sizeof(blob), MEM_COMMIT, PAGE_READWRITE);
-		if (nullptr == tmp)
-			throw std::bad_alloc();
+		if (nullptr == tmp) {
+			DEBUG_MESSAGE("Failed to allocate memory!");
+			return std::make_pair(std::shared_ptr<void>(), 0);
+		}
 
 		memcpy(tmp, &blob, sizeof(blob));
 
@@ -132,13 +134,18 @@ namespace entomoid {
 
 			std::tie(ptr, bufSize) = makeWindowsCallback(thisptr, reinterpret_cast<size_t>(fptr));
 
+			if (!ptr || 0 == bufSize)
+				return ptr;
+
 			if (!VirtualProtect(ptr.get(), bufSize, PAGE_EXECUTE_READ, &oldProtect)) {
-				WRAP_WINDOWS_RUNTIME_ERROR("Unable to set callback buffer to executable!");
+				DEBUG_MESSAGE("Unable to set callback buffer to executable!");
+				return std::shared_ptr<void>();
 			}
 			
 			return ptr;
 
 		}
+
 		EventType windows_mapEvent(UINT msg)
 		{
 			switch (msg) {
@@ -165,12 +172,15 @@ namespace entomoid {
 			char*		tmp = nullptr;
 			
 			if (RPC_S_OK != (status = ::UuidCreate(&uid))) {
-				WRAP_WINDOWS_RUNTIME_ERROR("Failed to create GUID!");
+				DEBUG_MESSAGE("Failed to create GUID!");
+				return "";
 			}
 
 			::UuidToStringA(&uid, reinterpret_cast<RPC_CSTR*>(&tmp));
-			if (nullptr == tmp)
-				WRAP_WINDOWS_RUNTIME_ERROR("Failed to translate GUID to string!");
+			if (nullptr == tmp) {
+				DEBUG_MESSAGE("Failed to translate GUID to string!");
+				return "";
+			}
 
 			output = tmp;
 

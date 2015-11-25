@@ -96,7 +96,7 @@ namespace entomoid {
 		T union_cast(S s)
 		{
 			static_assert(sizeof(T) == sizeof(S), "Size mismatch detected in union cast!");
-			union _un { S s; T t; } u;
+			union { S s; T t; } u;
 			u.s = s;
 			return u.t;
 		}
