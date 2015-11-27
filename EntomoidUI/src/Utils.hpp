@@ -102,7 +102,7 @@ namespace entomoid {
 		}
 
 		template <typename T, typename F>
-		std::shared_ptr<void> inline makeClosure(T thisptr, F cb, ClosureType type=ClosureType::Callback)
+		std::shared_ptr<void> inline closureFromMemberFunction(T thisptr, F cb, ClosureType type=ClosureType::Callback)
 		{
 			return platformGetCallback(thisptr, cb);
 		}

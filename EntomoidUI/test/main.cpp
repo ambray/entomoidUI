@@ -11,9 +11,35 @@
 
 using namespace entomoid;
 
+#ifdef _WIN32
+#define DECORATION	__stdcall
 
+#else
+#define DECORATION 
+#endif
+#define CALLBACK_FUNC(x) reinterpret_cast<int (DECORATION *)(int,int,int,int)>(x)
 
-void test_func()
+TEST_CASE("Tests for the utility callback wrapper", "[CallbackWrapper]")
 {
-    CHECK(1 == 1);
+	class TestClass {
+	private:
+		std::shared_ptr<void> cb_;
+		int internalCallback(int a, int b, int c, int d)
+		{
+			return a - b - (c + d);
+		}
+	public:
+		TestClass() { cb_ = utils::closureFromMemberFunction(this, &TestClass::internalCallback); }
+		std::shared_ptr<void> getCallback() { return cb_; }
+	};
+
+	TestClass tc;
+	auto cb_holder = tc.getCallback();
+
+	SECTION("Basic callback-wrapping functionality")
+	{
+		REQUIRE(cb_holder);
+		auto callback = CALLBACK_FUNC(cb_holder.get());
+		REQUIRE(10, callback(40, 20, 10, 10));
+	}
 }
