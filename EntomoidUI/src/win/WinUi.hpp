@@ -30,6 +30,7 @@
 #include <Windows.h>
 #include "../interface.hpp"
 #include "../Settings.hpp"
+#include "../Utils.hpp"
 #include "WinUtils.hpp"
 
 

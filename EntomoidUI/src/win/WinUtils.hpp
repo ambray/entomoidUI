@@ -31,6 +31,7 @@
 #include <stdint.h>
 #include <string>
 #include <memory>
+#include "../Settings.hpp"
 
 #define WRAP_WINDOWS_RUNTIME_ERROR(msg)\
 	do {\
