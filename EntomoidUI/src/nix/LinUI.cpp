@@ -34,8 +34,6 @@ bool entomoid::WindowBase::init()
 
 size_t entomoid::WindowBase::eventLoop()
 {
-    std::stringstream ss;
-    std::cout << "Entering event loop..." << std::endl;
     xcb_generic_event_t* evt = nullptr;
     while((evt = xcb_wait_for_event(connection_))){
         if(!active_)
