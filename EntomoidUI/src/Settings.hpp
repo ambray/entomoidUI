@@ -3,6 +3,11 @@
 #include <string>
 #include <functional>
 #include <stdint.h>
+#ifdef __linux__
+#include <xcb/xcb.h>
+#elif _WIN32
+#include <Windows.h>
+#endif
 
 namespace entomoid {
 
@@ -24,7 +29,7 @@ namespace entomoid {
 #ifdef _WIN32 
 	using WinRef = HWND;
 #elif __linux__
-    using WinRef = void*;
+    using WinRef = xcb_window_t;
 #endif
 
 	struct WindowSettings {

@@ -4,6 +4,7 @@
 #include <mutex>
 #include <map>
 #include <functional>
+#include <xcb/xcb.h>
 #include "../interface.hpp"
 #include "../Settings.hpp"
 
