@@ -26,7 +26,7 @@ TEST_CASE("Tests for the utility callback wrapper", "[CallbackWrapper]")
 		std::shared_ptr<void> cb_;
 		int internalCallback(int a, int b, int c, int d)
 		{
-			return a - b - (c + d);
+			return a + b + (c + d);
 		}
 	public:
 		TestClass() { cb_ = utils::closureFromMemberFunction(this, &TestClass::internalCallback); }
@@ -40,6 +40,7 @@ TEST_CASE("Tests for the utility callback wrapper", "[CallbackWrapper]")
 	{
 		REQUIRE(cb_holder);
 		auto callback = CALLBACK_FUNC(cb_holder.get());
-		REQUIRE(10, callback(40, 20, 10, 10));
+		auto testVal = callback(10, 10, 10, 10); 
+		REQUIRE(40 == testVal);
 	}
 }
