@@ -12,5 +12,7 @@ if "%2"=="--nobuild" (
 )
 cmake.exe --build . --target ALL_BUILD --config Debug
 cmake.exe --build . --target ALL_BUILD --config Release
+ctest.exe -C Debug
+ctest.exe -C Release
 
 :END
