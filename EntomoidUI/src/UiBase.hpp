@@ -30,6 +30,8 @@
 
 #ifdef _WIN32 
 #include "win/WinUi.hpp"
+#elif __linux__
+#include "nix/LinUI.hpp"
 #endif
 
 namespace entomoid {

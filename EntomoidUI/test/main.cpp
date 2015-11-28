@@ -5,6 +5,9 @@
 #define DECORATION	__stdcall
 #include "../src/win/WinUtils.hpp"
 #include <windows.h>
+#elif __linux__
+#include "../src/nix/LinUtils.hpp"
+#define DECORATION
 #else
 #define DECORATION 
 #endif

@@ -4,6 +4,8 @@
 #ifdef _WIN32
 #include <windows.h>
 #include "../src/win/WinUtils.hpp"
+#elif __linux__
+#include "../src/nix/LinUtils.hpp"
 #endif
 #include <memory>
 #include "../src/UiBase.hpp"
