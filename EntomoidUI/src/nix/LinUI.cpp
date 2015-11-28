@@ -30,7 +30,6 @@ bool entomoid::WindowBase::init()
 
 size_t entomoid::WindowBase::eventLoop()
 {
-    using namespace std::literals;
     while(true){
        sleep(1000);
     }
