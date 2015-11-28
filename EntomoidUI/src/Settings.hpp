@@ -23,6 +23,8 @@ namespace entomoid {
 
 #ifdef _WIN32 
 	using WinRef = HWND;
+#elif __linux__
+    using WinRef = void*;
 #endif
 
 	struct WindowSettings {

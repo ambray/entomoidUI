@@ -1,4 +1,4 @@
-#include "LinuUI.hpp"
+#include "LinUI.hpp"
 
 bool entomoid::WindowBase::init()
 {

@@ -31,7 +31,6 @@
 #include <stdint.h>
 #include <string>
 #include <memory>
-#include "../Utils.hpp"
 
 #define WRAP_WINDOWS_RUNTIME_ERROR(msg)\
 	do {\
@@ -55,17 +54,11 @@
 namespace entomoid {
 	namespace utils {
 
-		std::shared_ptr<void> windows_getCallback(size_t thisptr, void* fptr);
+		std::shared_ptr<void> platformGetCallback(size_t thisptr, void* fptr);
 		EventType windows_mapEvent(UINT msg);
 		std::string platformGetUniqueId();
 
-		template <typename T, typename F>
-		std::shared_ptr<void> inline platformGetCallback(T thisptr, F fptr)
-		{
-			return windows_getCallback((size_t)thisptr, union_cast<void*>(fptr));
-		}
-	
-		
+
 		template <typename T>
 		EventType inline platformTranslateEvent(T t)
 		{

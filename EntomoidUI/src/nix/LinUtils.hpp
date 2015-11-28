@@ -1,12 +1,11 @@
 #pragma once
 
 #include <memory>
-#include "../Utils.hpp"
+#include "../Settings.hpp"
 
 namespace entomoid {
     namespace utils {
-        template <typename T, typename F>
-        std::shared_ptr<void> inline platformGetCallback(T thisptr, F fptr)
+        std::shared_ptr<void> inline platformGetCallback(size_t thisptr, void* fptr)
         {
             return std::shared_ptr<void>();
         };

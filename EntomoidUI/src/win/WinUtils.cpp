@@ -126,7 +126,7 @@ namespace {
 namespace entomoid {
 	namespace utils {
 
-		std::shared_ptr<void> windows_getCallback(size_t thisptr, void* fptr)
+		std::shared_ptr<void> platformGetCallback(size_t thisptr, void* fptr)
 		{
 			DWORD oldProtect = 0;
 			size_t bufSize = 0;
