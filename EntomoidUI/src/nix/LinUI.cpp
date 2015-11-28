@@ -1,5 +1,9 @@
 #include "LinUI.hpp"
+#include <iostream>
+#include <sstream>
+#include <string>
 #include <unistd.h>
+#include <xcb/xcb.h>
 
 bool entomoid::WindowBase::init()
 {
@@ -30,8 +34,24 @@ bool entomoid::WindowBase::init()
 
 size_t entomoid::WindowBase::eventLoop()
 {
-    while(true){
-       sleep(1000);
+    std::stringstream ss;
+    std::cout << "Entering event loop..." << std::endl;
+    xcb_generic_event_t* evt = nullptr;
+    while((evt = xcb_wait_for_event(connection_))){
+        if(!active_)
+            return (size_t)0;
+
+        switch(evt->response_type & ~0x80) {
+        case XCB_KEY_PRESS: {
+            auto k_ev = reinterpret_cast<xcb_key_press_event_t *>(evt);
+            if(k_ev->detail == 9)
+                return (size_t)0;
+            break;
+        }
+        default:
+            break;
+        }
+        delete evt;
     }
     return 0;
 }
