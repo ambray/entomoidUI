@@ -49,6 +49,8 @@ TEST_CASE("Tests for the utility callback wrapper", "[CallbackWrapper]")
 			// can access private class members? (e.g., proper use of this ptr)
 			if(300 == a)
 				return internal_;
+
+			return 0;
 		}
 	public:
 		TestClass() : internal_(100) { cb_ = utils::closureFromMemberFunction(this, &TestClass::internalCallback); }

@@ -3,7 +3,7 @@
 #include <sstream>
 #ifdef _WIN32
 #include <windows.h>
-#include "../src/WinUtils.hpp"
+#include "../src/win/WinUtils.hpp"
 #endif
 #include <memory>
 #include "../src/UiBase.hpp"

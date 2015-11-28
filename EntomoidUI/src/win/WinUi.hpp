@@ -28,8 +28,8 @@
 #include <map>
 #include <functional>
 #include <Windows.h>
-#include "interface.hpp"
-#include "Settings.hpp"
+#include "../interface.hpp"
+#include "../Settings.hpp"
 #include "WinUtils.hpp"
 
 
