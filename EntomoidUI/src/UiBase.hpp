@@ -29,7 +29,7 @@
 #include "Settings.hpp"
 
 #ifdef _WIN32 
-#include "WinUi.hpp"
+#include "win/WinUi.hpp"
 #endif
 
 namespace entomoid {

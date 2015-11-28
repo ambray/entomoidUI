@@ -2,7 +2,12 @@
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 file(GLOB entomoid_SOURCES *.cpp)
 file(GLOB entomoid_HEADERS *.hpp)
-add_library(entomoid ${entomoid_SOURCES} ${entomoid_HEADERS})
+if(WIN32)
+    file(GLOB platform_SOURCES win/*.cpp)
+    file(GLOB pltform_HEADERS win/*.hpp)
+endif(WIN32)
+
+add_library(entomoid ${entomoid_SOURCES} ${entomoid_HEADERS} ${platform_SOURCES} ${platform_HEADERS})
 target_include_directories(entomoid PUBLIC ${entomoid_SOURCE_DIR})
 
 

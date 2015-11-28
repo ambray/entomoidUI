@@ -1,22 +1,24 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-#include <windows.h>
-#include <memory>
-#define CATCH_CONFIG_MAIN
-#include <catch.hpp>
-#include "..\src\UiBase.hpp"
-#include "..\src\Utils.hpp"
-#include "..\src\WinUtils.hpp"
-
-using namespace entomoid;
-
 #ifdef _WIN32
 #define DECORATION	__stdcall
-
+#include "../src/win/WinUtils.hpp"
+#include <windows.h>
 #else
 #define DECORATION 
 #endif
+#include <memory>
+#define CATCH_CONFIG_MAIN
+#include <catch.hpp>
+#include "../src/UiBase.hpp"
+#include "../src/Utils.hpp"
+
+
+using namespace entomoid;
+
+
+
 #define CALLBACK_FUNC(x) reinterpret_cast<int (DECORATION *)(int,int,int,int)>(x)
 
 TEST_CASE("Tests for the utility callback wrapper", "[CallbackWrapper]")

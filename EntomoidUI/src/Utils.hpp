@@ -35,7 +35,7 @@
 #include "Settings.hpp"
 
 #ifdef _WIN32 
-#include "WinUtils.hpp"
+#include "win/WinUtils.hpp"
 #endif
 
 /**
