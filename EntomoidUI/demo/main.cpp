@@ -25,6 +25,8 @@ int main(int argc, char** argv, char** envp)
 	Window<WindowBasic> wb;
 
 	if (!wb.init()) {
+		ss << "Failed to initialize!" << std::endl;
+		std::cerr << ss.str();
 		return -1;
 	}
 	wb.setEventFunc<EventType::QuitEvent>([&](EventObject& ob) { wb.shutdown(); });
