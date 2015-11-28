@@ -15,6 +15,7 @@ target_include_directories(entomoid PUBLIC ${entomoid_SOURCE_DIR})
 
 if(UNIX)
 # TODO: populate build options | (APPLE/android?)
+    set_target_properties(entomoid PROPERTIES LINKER_LANGUAGE CXX)
 else(UNIX)
 if(WIN32)
 add_library(rpcrt4 STATIC IMPORTED)
