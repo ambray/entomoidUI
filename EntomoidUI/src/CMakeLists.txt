@@ -18,22 +18,24 @@ endif(ANDROID)
 add_library(entomoid ${entomoid_SOURCES} ${entomoid_HEADERS} ${platform_SOURCES} ${platform_HEADERS})
 target_include_directories(entomoid PUBLIC ${entomoid_SOURCE_DIR})
 
+
+if(UNIX)
 if(ANDROID)
 
-endif(ANDROID)
-if(UNIX)
+else(ANDROID)
     set_target_properties(entomoid PROPERTIES LINKER_LANGUAGE CXX)
     find_package(PkgConfig)
     pkg_check_modules(xcb_pkg xcb)
     find_library(xcb_libs NAMES xcb libxcb PATHS ${xcb_pkg_LIBRARY_DIRS})
     target_link_libraries(entomoid ${xcb_libs})
-else(UNIX)
+endif(ANDROID)
+endif(UNIX)
 if(WIN32)
     add_library(rpcrt4 STATIC IMPORTED)
     set_target_properties(rpcrt4 PROPERTIES IMPORTED_LOCATION "rpcrt4.lib")
     target_link_libraries(entomoid rpcrt4)
 endif(WIN32)
-endif(UNIX)
+
 
 
 

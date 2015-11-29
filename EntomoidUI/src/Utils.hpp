@@ -36,10 +36,10 @@
 
 #ifdef _WIN32 
 #include "win/WinUtils.hpp"
-#elif __linux__
-#include "nix/LinUtils.hpp"
 #elif __ANDROID__
 #include "android/AndUtils.hpp"
+#elif __linux__
+#include "nix/LinUtils.hpp"
 #endif
 
 /**
