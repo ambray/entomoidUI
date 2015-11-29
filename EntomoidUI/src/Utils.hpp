@@ -38,6 +38,8 @@
 #include "win/WinUtils.hpp"
 #elif __linux__
 #include "nix/LinUtils.hpp"
+#elif __ANDROID__
+#include "android/AndUtils.hpp"
 #endif
 
 /**

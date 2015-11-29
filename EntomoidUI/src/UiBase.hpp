@@ -32,6 +32,8 @@
 #include "win/WinUi.hpp"
 #elif __linux__
 #include "nix/LinUI.hpp"
+#elif __ANDROID__
+#include "android/AndUi.hpp"
 #endif
 
 namespace entomoid {
