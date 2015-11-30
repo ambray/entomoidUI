@@ -16,6 +16,8 @@ using namespace entomoid;
 
 #ifdef _WIN32
 int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hPrev, LPSTR cmd, int cmdShow)
+#elif __ANDROID__
+void android_main(struct android_app* state)
 #else
 int main(int argc, char** argv, char** envp)
 #endif
