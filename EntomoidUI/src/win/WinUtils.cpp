@@ -126,13 +126,13 @@ namespace {
 namespace entomoid {
 	namespace utils {
 
-		std::shared_ptr<void> platformGetCallback(size_t thisptr, void* fptr)
+		std::shared_ptr<void> internal_GetCallback(void* thisptr, void* fptr)
 		{
 			DWORD oldProtect = 0;
 			size_t bufSize = 0;
 			std::shared_ptr<void> ptr;
 
-			std::tie(ptr, bufSize) = makeWindowsCallback(thisptr, reinterpret_cast<size_t>(fptr));
+			std::tie(ptr, bufSize) = makeWindowsCallback(reinterpret_cast<size_t>(thisptr), reinterpret_cast<size_t>(fptr));
 
 			if (!ptr || 0 == bufSize)
 				return ptr;

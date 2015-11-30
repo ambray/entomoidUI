@@ -61,7 +61,7 @@ bool entomoid::WindowBase::init()
 
 	try {
 		windowClassName_ = utils::platformGetUniqueId();
-		callback_ = utils::closureFromMemberFunction(this, &WindowBase::WndFunc);
+		callback_ = utils::platformGetCallback(this, &WindowBase::WndFunc);
 
 		if ("" == windowClassName_ || !callback_)
 			return false;

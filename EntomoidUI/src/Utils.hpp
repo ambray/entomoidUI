@@ -99,15 +99,10 @@ namespace entomoid {
 		template <typename T, typename S>
 		T union_cast(S s)
 		{
+			static_assert(sizeof(T) == sizeof(S), "Invalid cast attempt!");
 			union { S s; T t; } u;
 			u.s = s;
 			return u.t;
-		}
-
-		template <typename T, typename F>
-		std::shared_ptr<void> inline closureFromMemberFunction(T thisptr, F cb, ClosureType type=ClosureType::Callback)
-		{
-			return platformGetCallback(reinterpret_cast<size_t>(thisptr), union_cast<void*>(cb));
 		}
 
 		template <typename T>

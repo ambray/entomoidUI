@@ -57,7 +57,7 @@ TEST_CASE("Tests for the utility callback wrapper", "[CallbackWrapper]")
 			return 0;
 		}
 	public:
-		TestClass() : internal_(100) { cb_ = utils::closureFromMemberFunction(this, &TestClass::internalCallback); }
+		TestClass() : internal_(100) { cb_ = utils::platformGetCallback(this, &TestClass::internalCallback); }
 		std::shared_ptr<void> getCallback() { return cb_; }
 	};
 
